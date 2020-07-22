@@ -1,4 +1,5 @@
-#!/bin/bash
+# This program is intended to update homebrew, npm, and
+# upload the configs for my dot files repo
 
 Command() {
     COLUMNS=$(tput cols)
