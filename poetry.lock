@@ -11,6 +11,14 @@ pycodestyle = ">=2.6.0"
 toml = "*"
 
 [[package]]
+category = "dev"
+description = "A Bash beautifier for the masses."
+name = "beautysh"
+optional = false
+python-versions = "*"
+version = "6.0.1"
+
+[[package]]
 category = "main"
 description = "Cross-platform colored terminal text."
 marker = "sys_platform == \"win32\""
@@ -63,13 +71,16 @@ version = "1.0.1"
 dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 
 [metadata]
-content-hash = "8dbf2bd62a627fc7df20e6c2ef5985138fc0a33ce48693759a7ac53d7388e44a"
+content-hash = "8c8dec892259e5c7a05f93903bc1d57f4c96e33f0b8d7b7889a2c465fc804592"
 lock-version = "1.0"
 python-versions = "^3.8"
 
 [metadata.files]
 autopep8 = [
     {file = "autopep8-1.5.3.tar.gz", hash = "sha256:60fd8c4341bab59963dafd5d2a566e94f547e660b9b396f772afe67d8481dbf0"},
+]
+beautysh = [
+    {file = "beautysh-6.0.1.tar.gz", hash = "sha256:9df2fd6584f2470fcb76556ac0bf4c69575133d63318a1d8e4253a064cc145e1"},
 ]
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
