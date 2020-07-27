@@ -20,5 +20,10 @@ os.chdir(month_name)
 # Creating file from template
 new_folder_path = os.getcwd() + '/{}-{}-{}.mindnode'.format(
     month_name.title(), today.day, today.year)
+if os.path.exists(new_folder_path):
+    print('File already exists!')
+    exit(1)
 shutil.copytree(template_folder_path, new_folder_path)
 print('Created the file')
+
+os.system('open ' + new_folder_path.replace(' ', r'\ '))
