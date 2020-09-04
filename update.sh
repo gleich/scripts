@@ -11,7 +11,7 @@ Command() {
 
 Command brew\ update
 Command brew\ upgrade
-Command brew\ cask\ upgrade
+Command brew\ upgrade\ --cask
 Command brew\ cleanup
 Command npm\ upgrade\ -g
 cd /Users/matthewgleich/Documents/GitHub/Personal/Bash/Dot-Files/
