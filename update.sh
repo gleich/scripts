@@ -13,6 +13,7 @@ Command brew\ update
 Command brew\ upgrade
 Command brew\ upgrade\ --cask
 Command brew\ cleanup
+Command mas\ upgrade
 Command npm\ upgrade\ -g
 cd /Users/matthewgleich/Documents/GitHub/Personal/Bash/Dot-Files/
 Command sh\ push-latest.sh
