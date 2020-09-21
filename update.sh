@@ -1,4 +1,4 @@
-# This program is intended to update homebrew, npm, and
+# This program is intended to update homebrew, npm, mas, flutter, and
 # upload the configs for my dot files repo
 
 Command() {
@@ -15,5 +15,7 @@ Command brew\ upgrade\ --cask
 Command brew\ cleanup
 Command mas\ upgrade
 Command npm\ upgrade\ -g
-cd /Users/matthewgleich/Documents/GitHub/Personal/Bash/Dot-Files/
+Command flutter\ upgrade
+cd /Users/matthewgleich/Documents/GitHub/Personal/Bash/dots/
+Command git\ pull
 Command sh\ push-latest.sh
