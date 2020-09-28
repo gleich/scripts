@@ -16,6 +16,5 @@ Command brew\ cleanup
 Command mas\ upgrade
 Command npm\ upgrade\ -g
 Command flutter\ upgrade
-cd /Users/matthewgleich/Documents/GitHub/Personal/Bash/dots/
-Command git\ pull
+cd /Users/mattgleich/github/Matt-Gleich/public/Shell/dots/bin
 Command sh\ push-latest.sh
