@@ -4,7 +4,7 @@ import calendar
 import shutil
 from datetime import datetime
 
-daily_directory_path = '/Users/matthewgleich/Library/Mobile Documents/W6L39UYL6Z~com~mindnode~MindNode/Documents/personal/daily'
+daily_directory_path = '/Users/mattgleich/Library/Mobile Documents/W6L39UYL6Z~com~mindnode~MindNode/Documents/personal/daily'
 # Mindnode files are folders (in package form)
 template_folder_path = daily_directory_path + '/template.mindnode'
 
