@@ -12,7 +12,7 @@ Command() {
 Command brew\ update
 Command brew\ upgrade
 Command brew\ upgrade\ --cask
-Command brew\ cleanup
+Command brew\ cleanup\ -s
 Command mas\ upgrade
 Command npm\ upgrade\ -g
 Command fgh\ update
