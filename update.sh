@@ -17,6 +17,5 @@ Command mas\ upgrade
 Command npm\ upgrade\ -g
 Command fgh\ update
 Command fgh\ clean
-Command flutter\ upgrade
 cd /Users/mattgleich/github/Matt-Gleich/public/Shell/dots/bin
 Command sh\ push-latest.sh
