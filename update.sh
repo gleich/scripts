@@ -19,6 +19,6 @@ Command npm\ upgrade\ -g
 Command fgh\ update
 Command fgh\ clean
 Command omz\ update
-cd /Users/mattgleich/github/Matt-Gleich/public/Shell/dots/bin/latest
+cd /Users/mattgleich/github/Matt-Gleich/public/shell/dots/bin/latest
 Command python3\ latest.py
 
