@@ -18,7 +18,6 @@ Command mas\ upgrade
 Command npm\ upgrade\ -g
 Command fgh\ update
 Command fgh\ clean
-Command omz\ update
 cd /Users/mattgleich/github/Matt-Gleich/public/shell/dots/bin/fetch
 Command poetry\ run\ python3\ main.py
 
