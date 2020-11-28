@@ -12,7 +12,6 @@ Command() {
 
 Command brew\ update
 Command brew\ upgrade
-Command brew\ upgrade\ --cask
 Command brew\ cleanup\ -s
 Command mas\ upgrade
 Command npm\ upgrade\ -g
@@ -21,4 +20,3 @@ Command fgh\ clean
 Command rustup\ update
 cd /Users/mattgleich/github/Matt-Gleich/public/shell/dots/bin/fetch
 Command poetry\ run\ python3\ main.py
-
