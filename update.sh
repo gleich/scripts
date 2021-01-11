@@ -15,8 +15,8 @@ Command brew\ upgrade
 Command brew\ cleanup\ -s
 Command mas\ upgrade
 Command npm\ upgrade\ -g
-Command fgh\ update
 Command fgh\ clean
+Command fgh\ update
 Command fgh\ pull
 Command rustup\ update
 Command gitmoji\ --update
