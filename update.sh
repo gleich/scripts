@@ -20,5 +20,6 @@ Command fgh\ update
 Command fgh\ pull
 Command rustup\ update
 Command gitmoji\ --update
+Command go\ clean\ --modcache
 cd /Users/matt/github/Matt-Gleich/public/shell/dots/bin/fetch
 Command poetry\ run\ python3\ main.py
