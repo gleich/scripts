@@ -13,7 +13,6 @@ Command() {
 Command brew\ update
 Command brew\ upgrade
 Command brew\ cleanup\ -s
-Command mas\ upgrade
 Command npm\ upgrade\ -g
 Command fgh\ clean
 Command fgh\ update
