@@ -19,5 +19,5 @@ Command fgh\ update
 Command fgh\ pull
 Command rustup\ update
 Command gitmoji\ --update
-cd /Users/matt/github/Matt-Gleich/public/shell/dots/bin/fetch
+cd /Users/matt/src/Matt-Gleich/public/shell/dots/bin/fetch
 Command poetry\ run\ python3\ main.py
