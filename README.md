@@ -1,7 +1,7 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["gleich"]:end -->
 # scripts
 
-![format](https://github.com/Matt-Gleich/scripts/workflows/format/badge.svg)
+![format](https://github.com/gleich/scripts/workflows/format/badge.svg)
 
 🐚 My automation scripts
 
@@ -9,6 +9,6 @@
 ## 👥 Contributors
 
 
-- **[@Matt-Gleich](https://github.com/Matt-Gleich)**
+- **[@gleich](https://github.com/gleich)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->
