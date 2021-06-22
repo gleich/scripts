@@ -20,5 +20,7 @@ Command fgh\ pull
 Command rustup\ update
 Command cargo\ install-update\ -a
 Command gitmoji\ --update
-cd /Users/matt/src/gleich/public/vim-script/dots/bin/fetch
+cd $(fgh ls dots) && cd ./bin/fetch
 Command poetry\ run\ python3\ main.py
+cd $(fgh ls cerebrum)
+Command sh\ sync.sh
