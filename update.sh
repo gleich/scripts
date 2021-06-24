@@ -10,17 +10,17 @@ Command() {
     $1
 }
 
-Command brew\ update
-Command brew\ upgrade
-Command brew\ cleanup\ -s
-Command npm\ upgrade\ -g
-Command fgh\ clean
-Command fgh\ update
-Command fgh\ pull
-Command rustup\ update
-Command cargo\ install-update\ -a
-Command gitmoji\ --update
+Command "brew update"
+Command "brew upgrade"
+Command "brew cleanup -s"
+Command "npm upgrade -g"
+Command "fgh clean"
+Command "fgh update"
+Command "fgh pull"
+Command "rustup update"
+Command "cargo install-update -a"
+Command "gitmoji --update"
 cd $(fgh ls dots) && cd ./bin/fetch
-Command poetry\ run\ python3\ main.py
+Command "poetry run python3 main.py"
 cd $(fgh ls cerebrum)
-Command sh\ sync.sh
+Command "sh sync.sh"
