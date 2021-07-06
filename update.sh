@@ -1,6 +1,6 @@
-# This program is intended to update homebrew, npm, mas, flutter, and
+# This program is intended to update homebrew, npm, mas, and
 # upload the configs for my dot files repo. I run this manually every
-# morning and every night.
+# morning.
 
 Command() {
     COLUMNS=$(tput cols)
