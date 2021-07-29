@@ -22,5 +22,3 @@ Command "cargo install-update -a"
 Command "gitmoji --update"
 cd $(fgh ls dots) && cd ./bin/fetch
 Command "poetry run python3 main.py"
-cd $(fgh ls cerebrum)
-Command "sh sync.sh"
