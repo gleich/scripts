@@ -8,7 +8,6 @@
 <!-- DO NOT REMOVE - contributor_list:start -->
 ## 👥 Contributors
 
-
 - **[@gleich](https://github.com/gleich)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->
