@@ -3,7 +3,7 @@
 
 ![format](https://github.com/gleich/scripts/workflows/format/badge.svg)
 
-🐚 My automation scripts
+🐚 Automation scripts
 
 <!-- DO NOT REMOVE - contributor_list:start -->
 ## 👥 Contributors
