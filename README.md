@@ -1,8 +1,6 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["gleich"]:end -->
 # scripts
 
-![format](https://github.com/gleich/scripts/workflows/format/badge.svg)
-
 🐚 Automation scripts
 
 <!-- DO NOT REMOVE - contributor_list:start -->
