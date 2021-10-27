@@ -13,7 +13,6 @@ Command() {
 Command "brew update"
 Command "brew upgrade"
 Command "brew cleanup -s"
-Command "yarn global upgrade"
 Command "fgh update"
 Command "fgh pull"
 Command "rustup update"
