@@ -13,6 +13,9 @@ Command() {
 Command "brew update"
 Command "brew upgrade"
 Command "brew cleanup -s"
+Command "pnpm update --global"
+cd $(fgh ls senior)
+Command "kiwi check"
 Command "fgh update"
 Command "fgh pull"
 Command "rustup update"
