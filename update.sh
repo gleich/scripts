@@ -20,5 +20,5 @@ Command "fgh update"
 Command "fgh pull"
 Command "rustup update"
 Command "cargo install-update -a"
-cd $(fgh ls dots) && cd ./bin/fetch
-Command "poetry run python3 main.py"
+cd $(fgh ls dots)
+Command "fetch"
