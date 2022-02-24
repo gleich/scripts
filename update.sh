@@ -13,7 +13,6 @@ Command() {
 Command "brew update"
 Command "brew upgrade"
 Command "brew cleanup -s"
-Command "pnpm update --global"
 cd $(fgh ls senior)
 Command "optic check"
 Command "fgh update"
