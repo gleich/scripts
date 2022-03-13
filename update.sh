@@ -19,5 +19,6 @@ Command "fgh update"
 Command "fgh pull"
 Command "rustup update"
 Command "cargo install-update -a"
+Command "nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"
 cd $(fgh ls dots)
 Command "fetch"
