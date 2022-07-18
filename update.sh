@@ -13,8 +13,6 @@ Command() {
 Command "brew update"
 Command "brew upgrade"
 Command "brew cleanup -s"
-cd $(fgh ls senior)
-Command "optic check"
 Command "rustup update"
 Command "cargo install-update -a"
 cd $(fgh ls dots)
