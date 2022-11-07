@@ -15,5 +15,5 @@ Command "brew upgrade"
 Command "brew cleanup -s"
 Command "rustup update"
 Command "cargo install-update -a"
-cd $(fgh ls dots)
+cd ~/src/dots
 Command "fetch"
