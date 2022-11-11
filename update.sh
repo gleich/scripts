@@ -15,5 +15,9 @@ Command "brew upgrade"
 Command "brew cleanup -s"
 Command "rustup update"
 Command "cargo install-update -a"
+Command "echo checking docker status"
+if (docker stats --no-stream); then
+    Command "docker system prune -af"
+fi
 cd ~/src/dots
 Command "fetch"
