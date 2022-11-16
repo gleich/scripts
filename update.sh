@@ -19,5 +19,8 @@ Command "echo checking docker status"
 if (docker stats --no-stream); then
     Command "docker system prune -af"
 fi
+cd ~/tmp/rmapi
+Command "git pull ."
+Command "go install ."
 cd ~/src/dots
 Command "fetch"
