@@ -1,4 +1,4 @@
-use std::{path::Path, process};
+use std::{env, path::Path, process};
 
 use anyhow::{Context, Result};
 use task_log::{task, ConfigBuilder};
@@ -8,6 +8,7 @@ fn main() -> Result<()> {
         .replace(false)
         .apply()
         .expect("Failed to apply custom logging configuration");
+    let args: Vec<String> = env::args().collect();
 
     command("brew", vec!["update"], None)?;
     command("brew", vec!["upgrade"], None)?;
@@ -19,7 +20,9 @@ fn main() -> Result<()> {
     command("git", vec!["pull", "."], Some(rmapi_dir))?;
     command("go", vec!["install", "."], Some(rmapi_dir))?;
 
-    command("fetch", vec![], Some(Path::new("/Users/matt/src/dots")))?;
+    if args.contains(&String::from("--fetch")) {
+        command("fetch", vec![], Some(Path::new("/Users/matt/src/dots")))?;
+    }
 
     Ok(())
 }
