@@ -30,7 +30,7 @@ fn main() -> Result<()> {
 fn command(binary: &str, args: Vec<&str>, path: Option<&Path>) -> Result<()> {
     let cmd = format!("{} {}", binary, args.join(" "));
     task(&cmd, || -> Result<()> {
-        let mut process = process::Command::new(&binary)
+        let mut process = process::Command::new(binary)
             .args(&args)
             .current_dir(path.unwrap_or(Path::new("/Users/matt")))
             .spawn()
