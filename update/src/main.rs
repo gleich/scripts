@@ -17,7 +17,7 @@ fn main() -> Result<()> {
     command("cargo", vec!["install-update", "-a"], None)?;
 
     let rmapi_dir = Path::new("/Users/matt/tmp/rmapi");
-    command("git", vec!["pull", "."], Some(rmapi_dir))?;
+    command("git", vec!["pull"], Some(rmapi_dir))?;
     command("go", vec!["install", "."], Some(rmapi_dir))?;
 
     if args.contains(&String::from("--fetch")) {
