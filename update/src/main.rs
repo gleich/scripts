@@ -14,7 +14,7 @@ fn main() -> Result<()> {
     command("brew", vec!["upgrade"], None)?;
     command("brew", vec!["cleanup", "-s"], None)?;
     command("rustup", vec!["update"], None)?;
-    command("cargo", vec!["install-update", "-a"], None)?;
+    // command("cargo", vec!["install-update", "-a"], None)?;
 
     let rmapi_dir = Path::new("/Users/matt/tmp/rmapi");
     command("git", vec!["pull"], Some(rmapi_dir))?;
