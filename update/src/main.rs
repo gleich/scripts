@@ -21,7 +21,11 @@ fn main() -> Result<()> {
     // command("go", vec!["install", "."], Some(rmapi_dir))?;
 
     if args.contains(&String::from("--fetch")) {
-        command("fetch", vec![], Some(Path::new("/Users/matt/src/dots")))?;
+        command(
+            "fetch",
+            vec![],
+            Some(Path::new("/Users/matt/src/gleich/dots")),
+        )?;
     }
 
     Ok(())
