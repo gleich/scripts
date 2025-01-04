@@ -6,11 +6,11 @@ filename = "caprover.tar"
 [strava]
 prefix = "export_"
 suffix = ".zip"
+length = 19
 filename = "strava.zip"
-filename_length = 19
 
 [github]
 prefix = ""
 suffix = ".tar.gz"
+length = 43
 filename = "github.tar.gz"
-filename_length = 43

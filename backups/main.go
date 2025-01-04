@@ -13,10 +13,10 @@ import (
 )
 
 type Backup struct {
-	Prefix         *string `toml:"prefix"`
-	Suffix         *string `toml:"suffix"`
-	Filename       *string `toml:"filename"`
-	FilenameLength int     `toml:"filename_length"` // optional
+	Prefix   *string `toml:"prefix"`
+	Suffix   *string `toml:"suffix"`
+	Length   int     `toml:"length"` // optional
+	Filename *string `toml:"filename"`
 }
 
 func main() {
@@ -41,7 +41,7 @@ func main() {
 				strings.HasSuffix(
 					name,
 					*backup.Suffix,
-				) && (backup.FilenameLength == 0 || backup.FilenameLength == len(name)) {
+				) && (backup.Length == 0 || backup.Length == len(name)) {
 				destination := filepath.Join(
 					home,
 					"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",
