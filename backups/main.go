@@ -13,14 +13,14 @@ import (
 )
 
 type Backup struct {
-	Prefix   *string `toml:"prefix"`
-	Suffix   *string `toml:"suffix"`
-	Filename *string `toml:"filename"`
+	Prefix         *string `toml:"prefix"`
+	Suffix         *string `toml:"suffix"`
+	Filename       *string `toml:"filename"`
+	FilenameLength int     `toml:"filename_length"` // optional
 }
 
 func main() {
 	setupLogger()
-	lumber.Done("booted")
 
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -38,7 +38,10 @@ func main() {
 		for _, entry := range entires {
 			name := entry.Name()
 			if !entry.IsDir() && strings.HasPrefix(name, *backup.Prefix) &&
-				strings.HasSuffix(name, *backup.Suffix) {
+				strings.HasSuffix(
+					name,
+					*backup.Suffix,
+				) && (backup.FilenameLength == 0 || backup.FilenameLength == len(name)) {
 				destination := filepath.Join(
 					home,
 					"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",

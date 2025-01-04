@@ -7,3 +7,10 @@ filename = "caprover.tar"
 prefix = "export_"
 suffix = ".zip"
 filename = "strava.zip"
+filename_length = 19
+
+[github]
+prefix = ""
+suffix = ".tar.gz"
+filename = "github.tar.gz"
+filename_length = 43
