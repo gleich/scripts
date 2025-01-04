@@ -1,0 +1,9 @@
+[caprover]
+prefix = "caprover-backup-"
+suffix = ".tar"
+filename = "caprover.tar"
+
+[strava]
+prefix = "export_"
+suffix = ".zip"
+filename = "strava.zip"
