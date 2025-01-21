@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/gleich/lumber/v3"
+	"pkg.mattglei.ch/timber"
 )
 
 type Backup struct {
@@ -24,7 +24,7 @@ func main() {
 
 	home, err := os.UserHomeDir()
 	if err != nil {
-		lumber.Fatal(err, "failed to get home directory")
+		timber.Fatal(err, "failed to get home directory")
 	}
 
 	conf := readConfig(home)
@@ -32,7 +32,7 @@ func main() {
 	downloadsPath := filepath.Join(home, "Downloads")
 	entires, err := os.ReadDir(downloadsPath)
 	if err != nil {
-		lumber.Fatal(err, "failed to read files from downloads folder")
+		timber.Fatal(err, "failed to read files from downloads folder")
 	}
 	for backupName, backup := range conf {
 		for _, entry := range entires {
@@ -50,34 +50,34 @@ func main() {
 				if _, err := os.Stat(destination); !errors.Is(err, os.ErrNotExist) {
 					err = os.Remove(destination)
 					if err != nil {
-						lumber.Fatal(err, "failed to delete destination file")
+						timber.Fatal(err, "failed to delete destination file")
 					}
 				}
 
 				sourcePath := filepath.Join(downloadsPath, name)
 				sourceFile, err := os.Open(sourcePath)
 				if err != nil {
-					lumber.Fatal(err, "failed to open source file")
+					timber.Fatal(err, "failed to open source file")
 				}
 				defer sourceFile.Close()
 
 				destFile, err := os.Create(destination)
 				if err != nil {
-					lumber.Fatal(err, "failed to create destination file")
+					timber.Fatal(err, "failed to create destination file")
 				}
 				defer destFile.Close()
 
 				_, err = io.Copy(destFile, sourceFile)
 				if err != nil {
-					lumber.Fatal(err, "failed to copy backup file to destination")
+					timber.Fatal(err, "failed to copy backup file to destination")
 				}
 
 				err = os.Remove(sourcePath)
 				if err != nil {
-					lumber.Fatal(err, "failed to remove source file")
+					timber.Fatal(err, "failed to remove source file")
 				}
 
-				lumber.Done("Moved", backupName)
+				timber.Done("Moved", backupName)
 			}
 		}
 	}
@@ -86,10 +86,10 @@ func main() {
 func setupLogger() {
 	nytime, err := time.LoadLocation("America/New_York")
 	if err != nil {
-		lumber.Fatal(err, "failed to load new york timezone")
+		timber.Fatal(err, "failed to load new york timezone")
 	}
-	lumber.SetTimezone(nytime)
-	lumber.SetTimeFormat("01/02 03:04:05 PM MST")
+	timber.SetTimezone(nytime)
+	timber.SetTimeFormat("01/02 03:04:05 PM MST")
 }
 
 func readConfig(home string) map[string]Backup {
@@ -99,7 +99,7 @@ func readConfig(home string) map[string]Backup {
 		&backups,
 	)
 	if err != nil {
-		lumber.Error(err, "failed to parse config file")
+		timber.Error(err, "failed to parse config file")
 	}
 	return backups
 }
