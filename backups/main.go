@@ -12,28 +12,28 @@ import (
 )
 
 type backup struct {
-	Prefix   string `toml:"prefix"`
-	Suffix   string `toml:"suffix"`
-	Length   int    `toml:"length"` // optional
-	Filename string `toml:"filename"`
+	prefix   string
+	suffix   string
+	length   int // optional
+	filename string
 }
 
 var backups = map[string]backup{
 	"caprover": {
-		Prefix:   "caprover-backup",
-		Suffix:   ".tar",
-		Filename: "caprover.tar",
+		prefix:   "caprover-backup",
+		suffix:   ".tar",
+		filename: "caprover.tar",
 	},
 	"strava": {
-		Prefix:   "export_",
-		Suffix:   ".zip",
-		Length:   19,
-		Filename: "strava.zip",
+		prefix:   "export_",
+		suffix:   ".zip",
+		length:   19,
+		filename: "strava.zip",
 	},
 	"github": {
-		Suffix:   ".tar.gz",
-		Length:   43,
-		Filename: "github.tar.gz",
+		suffix:   ".tar.gz",
+		length:   43,
+		filename: "github.tar.gz",
 	},
 }
 
@@ -54,15 +54,15 @@ func main() {
 	for backupName, backup := range backups {
 		for _, entry := range entires {
 			name := entry.Name()
-			if !entry.IsDir() && strings.HasPrefix(name, backup.Prefix) &&
+			if !entry.IsDir() && strings.HasPrefix(name, backup.prefix) &&
 				strings.HasSuffix(
 					name,
-					backup.Suffix,
-				) && (backup.Length == 0 || backup.Length == len(name)) {
+					backup.suffix,
+				) && (backup.length == 0 || backup.length == len(name)) {
 				destination := filepath.Join(
 					home,
 					"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",
-					backup.Filename,
+					backup.filename,
 				)
 				if _, err := os.Stat(destination); !errors.Is(err, os.ErrNotExist) {
 					err = os.Remove(destination)

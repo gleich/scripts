@@ -12,17 +12,17 @@ import (
 )
 
 type command struct {
-	Binary    string
-	Args      []string
-	Directory string
+	binary    string
+	args      []string
+	directory string
 }
 
 var commands = []command{
-	{Binary: "brew", Args: []string{"update"}},
-	{Binary: "brew", Args: []string{"upgrade"}},
-	{Binary: "brew", Args: []string{"cleanup", "-s"}},
-	{Binary: "rustup", Args: []string{"update"}},
-	{Binary: "fetch", Directory: "/Users/matt/src/gleich/dots"},
+	{binary: "brew", args: []string{"update"}},
+	{binary: "brew", args: []string{"upgrade"}},
+	{binary: "brew", args: []string{"cleanup", "-s"}},
+	{binary: "rustup", args: []string{"update"}},
+	{binary: "fetch", directory: "/Users/matt/src/gleich/dots"},
 }
 
 func main() {
@@ -37,12 +37,12 @@ func main() {
 	for _, cmd := range commands {
 		execStart := time.Now()
 
-		args := strings.Join(cmd.Args, " ")
-		timber.Info("running", cmd.Binary, args)
+		args := strings.Join(cmd.args, " ")
+		timber.Info("running", cmd.binary, args)
 
-		cmdExec := exec.CommandContext(ctx, cmd.Binary, cmd.Args...)
-		if cmd.Directory != "" {
-			cmdExec.Dir = cmd.Directory
+		cmdExec := exec.CommandContext(ctx, cmd.binary, cmd.args...)
+		if cmd.directory != "" {
+			cmdExec.Dir = cmd.directory
 		}
 		cmdExec.Stdout = os.Stdout
 		cmdExec.Stderr = os.Stderr
@@ -55,7 +55,7 @@ func main() {
 
 		elapsed := time.Since(execStart)
 		elapsedTimes = append(elapsedTimes, elapsed)
-		timber.Done("finished running", cmd.Binary, args, "in", elapsed)
+		timber.Done("finished running", cmd.binary, args, "in", elapsed)
 
 	}
 
@@ -65,10 +65,10 @@ func main() {
 	for i, cmd := range commands {
 		fmt.Printf(
 			"\t%s",
-			cmd.Binary,
+			cmd.binary,
 		)
-		if len(cmd.Args) != 0 {
-			fmt.Printf(" %s", strings.Join(cmd.Args, " "))
+		if len(cmd.args) != 0 {
+			fmt.Printf(" %s", strings.Join(cmd.args, " "))
 		}
 		fmt.Printf(": %s\n", elapsedTimes[i])
 	}
