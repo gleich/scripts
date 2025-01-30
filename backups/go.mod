@@ -1,4 +1,4 @@
-module github.com/gleich/scripts/backups
+module pkg.mattglei.ch/scripts/backups
 
 go 1.23.4
 
