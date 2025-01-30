@@ -2,15 +2,12 @@ module pkg.mattglei.ch/scripts/backups
 
 go 1.23.4
 
-require (
-	github.com/BurntSushi/toml v1.4.0
-	pkg.mattglei.ch/timber v1.0.0
-)
+require pkg.mattglei.ch/timber v1.0.1
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/lipgloss v1.0.0 // indirect
-	github.com/charmbracelet/x/ansi v0.7.0 // indirect
+	github.com/charmbracelet/x/ansi v0.8.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect

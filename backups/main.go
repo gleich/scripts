@@ -8,15 +8,33 @@ import (
 	"strings"
 	"time"
 
-	"github.com/BurntSushi/toml"
 	"pkg.mattglei.ch/timber"
 )
 
 type Backup struct {
-	Prefix   *string `toml:"prefix"`
-	Suffix   *string `toml:"suffix"`
-	Length   int     `toml:"length"` // optional
-	Filename *string `toml:"filename"`
+	Prefix   string `toml:"prefix"`
+	Suffix   string `toml:"suffix"`
+	Length   int    `toml:"length"` // optional
+	Filename string `toml:"filename"`
+}
+
+var backups = map[string]Backup{
+	"caprover": {
+		Prefix:   "caprover-backup",
+		Suffix:   ".tar",
+		Filename: "caprover.tar",
+	},
+	"strava": {
+		Prefix:   "export_",
+		Suffix:   ".zip",
+		Length:   19,
+		Filename: "strava.zip",
+	},
+	"github": {
+		Suffix:   ".tar.gz",
+		Length:   43,
+		Filename: "github.tar.gz",
+	},
 }
 
 func main() {
@@ -28,25 +46,23 @@ func main() {
 		timber.Fatal(err, "failed to get home directory")
 	}
 
-	conf := readConfig(home)
-
 	downloadsPath := filepath.Join(home, "Downloads")
 	entires, err := os.ReadDir(downloadsPath)
 	if err != nil {
 		timber.Fatal(err, "failed to read files from downloads folder")
 	}
-	for backupName, backup := range conf {
+	for backupName, backup := range backups {
 		for _, entry := range entires {
 			name := entry.Name()
-			if !entry.IsDir() && strings.HasPrefix(name, *backup.Prefix) &&
+			if !entry.IsDir() && strings.HasPrefix(name, backup.Prefix) &&
 				strings.HasSuffix(
 					name,
-					*backup.Suffix,
+					backup.Suffix,
 				) && (backup.Length == 0 || backup.Length == len(name)) {
 				destination := filepath.Join(
 					home,
 					"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",
-					*backup.Filename,
+					backup.Filename,
 				)
 				if _, err := os.Stat(destination); !errors.Is(err, os.ErrNotExist) {
 					err = os.Remove(destination)
@@ -82,16 +98,4 @@ func main() {
 			}
 		}
 	}
-}
-
-func readConfig(home string) map[string]Backup {
-	var backups map[string]Backup
-	_, err := toml.DecodeFile(
-		filepath.Join(home, "src/gleich/scripts/backups/config.toml"),
-		&backups,
-	)
-	if err != nil {
-		timber.Error(err, "failed to parse config file")
-	}
-	return backups
 }
