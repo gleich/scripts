@@ -20,7 +20,8 @@ type Backup struct {
 }
 
 func main() {
-	setupLogger()
+	timber.SetTimezone(time.Local)
+	timber.SetTimeFormat("03:04:05")
 
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -81,15 +82,6 @@ func main() {
 			}
 		}
 	}
-}
-
-func setupLogger() {
-	nytime, err := time.LoadLocation("America/New_York")
-	if err != nil {
-		timber.Fatal(err, "failed to load new york timezone")
-	}
-	timber.SetTimezone(nytime)
-	timber.SetTimeFormat("01/02 03:04:05 PM MST")
 }
 
 func readConfig(home string) map[string]Backup {
