@@ -11,14 +11,14 @@ import (
 	"pkg.mattglei.ch/timber"
 )
 
-type Backup struct {
+type backup struct {
 	Prefix   string `toml:"prefix"`
 	Suffix   string `toml:"suffix"`
 	Length   int    `toml:"length"` // optional
 	Filename string `toml:"filename"`
 }
 
-var backups = map[string]Backup{
+var backups = map[string]backup{
 	"caprover": {
 		Prefix:   "caprover-backup",
 		Suffix:   ".tar",

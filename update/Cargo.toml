@@ -1,8 +1,0 @@
-[package]
-name = "update"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-anyhow = "1.0.66"
-task_log = "0.1.6"
