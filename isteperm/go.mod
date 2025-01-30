@@ -2,6 +2,8 @@ module pkg.mattglei.ch/scripts/isteperm
 
 go 1.23.5
 
+require pkg.mattglei.ch/timber v1.0.1
+
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/lipgloss v1.0.0 // indirect
@@ -13,5 +15,4 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	golang.org/x/sys v0.29.0 // indirect
-	pkg.mattglei.ch/timber v1.0.1 // indirect
 )
