@@ -12,25 +12,29 @@ import (
 )
 
 type backup struct {
+	name     string
 	prefix   string
 	suffix   string
 	length   int // optional
 	filename string
 }
 
-var backups = map[string]backup{
-	"caprover": {
+var backups = []backup{
+	{
+		name:     "caprover",
 		prefix:   "caprover-backup",
 		suffix:   ".tar",
 		filename: "caprover.tar",
 	},
-	"strava": {
+	{
+		name:     "strava",
 		prefix:   "export_",
 		suffix:   ".zip",
 		length:   19,
 		filename: "strava.zip",
 	},
-	"github": {
+	{
+		name:     "github",
 		suffix:   ".tar.gz",
 		length:   43,
 		filename: "github.tar.gz",
@@ -51,7 +55,7 @@ func main() {
 	if err != nil {
 		timber.Fatal(err, "failed to read files from downloads folder")
 	}
-	for backupName, backup := range backups {
+	for _, backup := range backups {
 		for _, entry := range entires {
 			name := entry.Name()
 			if !entry.IsDir() && strings.HasPrefix(name, backup.prefix) &&
@@ -94,7 +98,7 @@ func main() {
 					timber.Fatal(err, "failed to remove source file")
 				}
 
-				timber.Done("Moved", backupName)
+				timber.Done("Moved", backup.name)
 			}
 		}
 	}
