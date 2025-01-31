@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"os/exec"
@@ -37,9 +36,6 @@ func main() {
 	timber.SetTimezone(time.Local)
 	timber.SetTimeFormat("03:04:05")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
-	defer cancel()
-
 	start := time.Now()
 	elapsedTimes := []time.Duration{}
 	for _, cmd := range commands {
@@ -47,7 +43,7 @@ func main() {
 
 		timber.Info("running", cmd)
 
-		cmdExec := exec.CommandContext(ctx, cmd.binary, cmd.args...)
+		cmdExec := exec.Command(cmd.binary, cmd.args...)
 		if cmd.directory != "" {
 			cmdExec.Dir = cmd.directory
 		}
