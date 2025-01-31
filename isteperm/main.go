@@ -60,5 +60,5 @@ func main() {
 	if err != nil {
 		timber.Fatal(err, "failed to walk directory")
 	}
-	timber.Done("update permissions for", updated, "files/folders")
+	timber.Done("updated permissions for", updated, "files/folders")
 }
