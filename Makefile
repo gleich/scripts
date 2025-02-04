@@ -1,4 +1,4 @@
 install:
-	cd backups && go install .
-	cd isteperm && go install .
-	cd update && go install .
+	go install backups/backups.go
+	go install isteperm/isteperm.go
+	go install update/update.go

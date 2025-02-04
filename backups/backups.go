@@ -39,6 +39,13 @@ var backups = []backup{
 		length:   43,
 		filename: "github.tar.gz",
 	},
+	{
+		name:     "goodnotes",
+		prefix:   "Backup ",
+		suffix:   ".zip",
+		length:   21,
+		filename: "goodnotes.zip",
+	},
 }
 
 func main() {
@@ -98,7 +105,7 @@ func main() {
 					timber.Fatal(err, "failed to remove source file")
 				}
 
-				timber.Done("Moved", backup.name)
+				timber.Done("moved", backup.name)
 			}
 		}
 	}
