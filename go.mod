@@ -1,6 +1,6 @@
 module pkg.mattglei.ch/scripts
 
-go 1.23.5
+go 1.23.6
 
 require pkg.mattglei.ch/timber v1.1.0
 
