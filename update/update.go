@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"pkg.mattglei.ch/timber"
+	"go.mattglei.ch/timber"
 )
 
 type command struct {

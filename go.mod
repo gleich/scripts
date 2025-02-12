@@ -1,8 +1,8 @@
-module pkg.mattglei.ch/scripts
+module go.mattglei.ch/scripts
 
 go 1.23.6
 
-require pkg.mattglei.ch/timber v1.1.0
+require go.mattglei.ch/timber v1.1.1
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect

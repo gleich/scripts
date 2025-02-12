@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"pkg.mattglei.ch/timber"
+	"go.mattglei.ch/timber"
 )
 
 const DIRECTORY = "/Users/matt/src/gleich/rit-cs-labs/iste-140"
