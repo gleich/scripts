@@ -2,7 +2,7 @@ module go.mattglei.ch/scripts
 
 go 1.24
 
-require go.mattglei.ch/timber v1.1.1
+require go.mattglei.ch/timber v1.1.2
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
@@ -13,5 +13,5 @@ require (
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
-	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
 )
