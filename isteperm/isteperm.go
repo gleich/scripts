@@ -13,8 +13,8 @@ import (
 const DIRECTORY = "/Users/matt/src/gleich/rit-cs-labs/iste-140"
 
 func main() {
-	timber.SetTimezone(time.Local)
-	timber.SetTimeFormat("03:04:05")
+	timber.Timezone(time.Local)
+	timber.TimeFormat("03:04:05")
 
 	wd, err := os.Getwd()
 	if err != nil {
