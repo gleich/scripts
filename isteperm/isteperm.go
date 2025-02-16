@@ -27,12 +27,12 @@ func main() {
 	updated := 0
 	err = filepath.WalkDir(DIRECTORY, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
-			return fmt.Errorf("%v failed to walk directory at path %s", err, path)
+			return fmt.Errorf("%w failed to walk directory at path %s", err, path)
 		}
 
 		info, err := d.Info()
 		if err != nil {
-			return fmt.Errorf("%v failed to get info for %s", err, path)
+			return fmt.Errorf("%w failed to get info for %s", err, path)
 		}
 
 		perm := info.Mode().Perm()
@@ -45,11 +45,11 @@ func main() {
 		if mode != 0 {
 			err = os.Chmod(path, mode)
 			if err != nil {
-				return fmt.Errorf("%v failed to set file permissions of %d for %s", err, mode, path)
+				return fmt.Errorf("%w failed to set file permissions of %d for %s", err, mode, path)
 			}
 			relativePath, err := filepath.Rel(DIRECTORY, path)
 			if err != nil {
-				return fmt.Errorf("%v failed to get relative path for %s", err, path)
+				return fmt.Errorf("%w failed to get relative path for %s", err, path)
 			}
 			timber.Done(relativePath, "set to", mode)
 			updated++
