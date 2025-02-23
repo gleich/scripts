@@ -11,9 +11,8 @@ import (
 )
 
 type command struct {
-	binary    string
-	args      []string
-	directory string
+	binary string
+	args   []string
 }
 
 func (c command) String() string {
@@ -30,7 +29,7 @@ var commands = []command{
 	{binary: "brew", args: []string{"cleanup", "-s"}},
 	{binary: "rustup", args: []string{"update"}},
 	{binary: "nvim", args: []string{"--headless", "-c", "Lazy update", "-c", "qa"}},
-	{binary: "fetch", directory: "/Users/matt/src/gleich/dots"},
+	{binary: "dots"},
 }
 
 func main() {
@@ -45,9 +44,6 @@ func main() {
 		timber.Info("running", cmd)
 
 		cmdExec := exec.Command(cmd.binary, cmd.args...)
-		if cmd.directory != "" {
-			cmdExec.Dir = cmd.directory
-		}
 		cmdExec.Stdout = os.Stdout
 		cmdExec.Stderr = os.Stderr
 		cmdExec.Stdin = os.Stdin
