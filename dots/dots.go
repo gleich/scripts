@@ -56,11 +56,6 @@ var (
 			cmd:      []string{"brew", "bundle", "dump", "--describe", "--file=-"},
 			filename: "Brewfile",
 		},
-		{
-			name:     "vscode",
-			cmd:      []string{"code", "--list-extensions"},
-			filename: "vscode-extensions.txt",
-		},
 	}
 )
 
