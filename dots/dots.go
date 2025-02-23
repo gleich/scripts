@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
@@ -48,9 +49,6 @@ var (
 			".rustup/settings.toml",
 			".cargo/.crates.toml",
 		},
-		"~/.config": {
-			"gh/config.yml",
-		},
 	}
 	commands = []command{
 		{
@@ -93,6 +91,69 @@ func main() {
 			timber.Done("copied", filepath.Join(dir, filename))
 		}
 	}
+
+	fmt.Println()
+	timber.Info("copying folders")
+	for parentDir, dirs := range folders {
+		for _, dir := range dirs {
+			syspath, dotspath, err := paths(parentDir, dir)
+			if err != nil {
+				timber.Fatal(err, "failed to get paths for", parentDir, dir)
+			}
+			err = os.CopyFS(dotspath, os.DirFS(syspath))
+			if err != nil {
+				timber.Fatal(err, "failed to copy", syspath)
+			}
+			timber.Done("copied", filepath.Join(parentDir, dir))
+		}
+	}
+
+	fmt.Println()
+	timber.Info("running commands")
+	for _, command := range commands {
+		out, err := exec.Command(command.cmd[0], command.cmd[1:]...).Output()
+		if err != nil {
+			timber.Fatal(err, "failed to run", command.cmd)
+		}
+		dotspath := filepath.Join(REPO_DIR, command.filename)
+		err = os.WriteFile(dotspath, out, 0644)
+		if err != nil {
+			timber.Fatal(err, "failed to write output of command to", dotspath)
+		}
+		timber.Done("ran", command.name, "command")
+	}
+
+	fmt.Println()
+
+	out, err := exec.Command("neofetch", "--stdout").Output()
+	if err != nil {
+		timber.Fatal(err, "failed to run neofetch command")
+	}
+	err = os.WriteFile(
+		filepath.Join(REPO_DIR, "README.md"),
+		fmt.Appendf([]byte{}, "# dots\n```txt\n%s\n```", out),
+		0644,
+	)
+	if err != nil {
+		timber.Fatal(err, "failed to write changes to README")
+	}
+	timber.Done("wrote neofetch summary to readme")
+
+	cmd := exec.Command("git", "add", ".")
+	cmd.Dir = REPO_DIR
+	err = cmd.Run()
+	if err != nil {
+		timber.Fatal(err, "failed to stage changes via git add")
+	}
+	timber.Done("staged changes")
+
+	cmd = exec.Command("git", "commit", "-m", "chore: update")
+	cmd.Dir = REPO_DIR
+	err = cmd.Run()
+	if err != nil {
+		timber.Fatal(err, "failed to commit changes via git commit")
+	}
+	timber.Done("committed changes")
 }
 
 // get the system path and the dots repo path
