@@ -139,21 +139,31 @@ func main() {
 	}
 	timber.Done("wrote neofetch summary to readme")
 
-	cmd := exec.Command("git", "add", ".")
-	cmd.Dir = REPO_DIR
-	err = cmd.Run()
-	if err != nil {
-		timber.Fatal(err, "failed to stage changes via git add")
+	fmt.Println()
+	timber.Done("uploading changes")
+	cmds := map[string]*exec.Cmd{
+		"staged changes":    exec.Command("git", "add", "."),
+		"committed changes": exec.Command("git", "commit", "-m", "chore: update"),
+		"pushed changes":    exec.Command("git", "push"),
 	}
-	timber.Done("staged changes")
 
-	cmd = exec.Command("git", "commit", "-m", "chore: update")
-	cmd.Dir = REPO_DIR
-	err = cmd.Run()
-	if err != nil {
-		timber.Fatal(err, "failed to commit changes via git commit")
+	for msg, cmd := range cmds {
+		cmd.Dir = REPO_DIR
+		cmd.Stdout = os.Stdout
+		cmd.Stdin = os.Stdin
+		cmd.Stderr = os.Stderr
+		err = cmd.Run()
+		if err != nil {
+			if msg == "committed changes" {
+				if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
+					timber.Done("no changes to commit")
+					return
+				}
+			}
+			timber.Error(err, "failed to run", cmd.Args)
+		}
+		timber.Done(msg)
 	}
-	timber.Done("committed changes")
 }
 
 // get the system path and the dots repo path

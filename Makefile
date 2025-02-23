@@ -1,5 +1,8 @@
+.PHONY = install
+
 install:
-	go install backups/backups.go
-	go install isteperm/isteperm.go
-	go install update/update.go
-	go install dots/dots.go
+	@for dir in $$(find . -type f -name '*.go' ! -path "./vendor/*" -exec grep -l '^package main' {} \; | xargs -n1 dirname | sort -u); do \
+		echo "Installing package in $$dir"; \
+		go install $$dir; \
+	done
+
