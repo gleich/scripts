@@ -1,4 +1,4 @@
-module go.mattglei.ch/dots
+module go.mattglei.ch/scripts/dots
 
 go 1.24.0
 
