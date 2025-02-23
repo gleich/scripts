@@ -56,7 +56,11 @@ var (
 			cmd:      []string{"brew", "bundle", "dump", "--describe", "--file=-"},
 			filename: "Brewfile",
 		},
-		{name: "vscode", cmd: []string{"code", "--list-extensions"}, filename: "extensions.txt"},
+		{
+			name:     "vscode",
+			cmd:      []string{"code", "--list-extensions"},
+			filename: "vscode-extensions.txt",
+		},
 	}
 )
 
@@ -131,7 +135,7 @@ func main() {
 	}
 	err = os.WriteFile(
 		filepath.Join(REPO_DIR, "README.md"),
-		fmt.Appendf([]byte{}, "# dots\n```txt\n%s\n```", out),
+		fmt.Appendf([]byte{}, "# dots\n\n```txt\n%s\n```", strings.TrimSpace(string(out))),
 		0644,
 	)
 	if err != nil {
@@ -141,28 +145,31 @@ func main() {
 
 	fmt.Println()
 	timber.Done("uploading changes")
-	cmds := map[string]*exec.Cmd{
-		"staged changes":    exec.Command("git", "add", "."),
-		"committed changes": exec.Command("git", "commit", "-m", "chore: update"),
-		"pushed changes":    exec.Command("git", "push"),
+	cmds := []struct {
+		name string
+		cmd  *exec.Cmd
+	}{
+		{"staged changes", exec.Command("git", "add", ".")},
+		{"committed changes", exec.Command("git", "commit", "-m", "chore: update")},
+		{"pushed changes", exec.Command("git", "push")},
 	}
 
-	for msg, cmd := range cmds {
-		cmd.Dir = REPO_DIR
-		cmd.Stdout = os.Stdout
-		cmd.Stdin = os.Stdin
-		cmd.Stderr = os.Stderr
-		err = cmd.Run()
+	for _, c := range cmds {
+		c.cmd.Dir = REPO_DIR
+		c.cmd.Stdout = os.Stdout
+		c.cmd.Stdin = os.Stdin
+		c.cmd.Stderr = os.Stderr
+		err = c.cmd.Run()
 		if err != nil {
-			if msg == "committed changes" {
+			if c.name == "committed changes" {
 				if exitErr, ok := err.(*exec.ExitError); ok && exitErr.ExitCode() == 1 {
 					timber.Done("no changes to commit")
 					return
 				}
 			}
-			timber.Error(err, "failed to run", cmd.Args)
+			timber.Error(err, "failed to run", c.cmd.Args)
 		}
-		timber.Done(msg)
+		timber.Done(c.name)
 	}
 }
 
