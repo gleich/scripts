@@ -68,7 +68,6 @@ func main() {
 		timber.Fatal(err, "failed to reset root dots directory:", DOTS_ROOT_DIR)
 	}
 
-	timber.Info("copying files")
 	for dir, filenames := range files {
 		for _, filename := range filenames {
 			syspath, dotspath, err := paths(dir, filename)
@@ -87,12 +86,10 @@ func main() {
 			if err != nil {
 				timber.Fatal(err, "failed to write data to", dotspath)
 			}
-			timber.Done("copied", filepath.Join(dir, filename))
 		}
 	}
+	timber.Done("copied files")
 
-	fmt.Println()
-	timber.Info("copying folders")
 	for parentDir, dirs := range folders {
 		for _, dir := range dirs {
 			syspath, dotspath, err := paths(parentDir, dir)
@@ -103,12 +100,10 @@ func main() {
 			if err != nil {
 				timber.Fatal(err, "failed to copy", syspath)
 			}
-			timber.Done("copied", filepath.Join(parentDir, dir))
 		}
 	}
+	timber.Done("copied folders")
 
-	fmt.Println()
-	timber.Info("running commands")
 	for _, command := range commands {
 		out, err := exec.Command(command.cmd[0], command.cmd[1:]...).Output()
 		if err != nil {
@@ -121,8 +116,6 @@ func main() {
 		}
 		timber.Done("ran", command.name, "command")
 	}
-
-	fmt.Println()
 
 	out, err := exec.Command("neofetch", "--stdout").Output()
 	if err != nil {
@@ -142,7 +135,6 @@ func main() {
 	}
 	timber.Done("wrote neofetch summary to readme")
 
-	fmt.Println()
 	timber.Done("uploading changes")
 	cmds := []struct {
 		name string
@@ -152,7 +144,6 @@ func main() {
 		{"committed changes", exec.Command("git", "commit", "-m", "chore: update")},
 		{"pushed changes", exec.Command("git", "push")},
 	}
-
 	for _, c := range cmds {
 		c.cmd.Dir = REPO_DIR
 		c.cmd.Stdout = os.Stdout
@@ -168,7 +159,6 @@ func main() {
 			}
 			timber.Error(err, "failed to run", c.cmd.Args)
 		}
-		timber.Done(c.name)
 	}
 }
 
