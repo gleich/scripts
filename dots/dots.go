@@ -130,7 +130,11 @@ func main() {
 	}
 	err = os.WriteFile(
 		filepath.Join(REPO_DIR, "README.md"),
-		fmt.Appendf([]byte{}, "# dots\n\n```txt\n%s\n```", strings.TrimSpace(string(out))),
+		fmt.Appendf(
+			[]byte{},
+			"# dots\n\nupdated with [gleich/scripts/dots](https://github.com/gleich/scripts/tree/main/dots)\n\n```txt\n%s\n```",
+			strings.TrimSpace(string(out)),
+		),
 		0644,
 	)
 	if err != nil {
