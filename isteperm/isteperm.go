@@ -16,12 +16,9 @@ func main() {
 	timber.Timezone(time.Local)
 	timber.TimeFormat("03:04:05")
 
-	wd, err := os.Getwd()
+	err := os.Chdir(DIRECTORY)
 	if err != nil {
-		timber.Fatal(err, "failed to get current directory")
-	}
-	if wd != DIRECTORY {
-		timber.FatalMsg("please run from", DIRECTORY)
+		timber.Fatal(err, "failed to change directory to", DIRECTORY)
 	}
 
 	updated := 0
