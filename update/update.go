@@ -28,7 +28,6 @@ var commands = []command{
 	{binary: "brew", args: []string{"upgrade"}},
 	{binary: "brew", args: []string{"cleanup", "-s"}},
 	{binary: "rustup", args: []string{"update"}},
-	{binary: "nvim", args: []string{"--headless", "-c", "Lazy update", "-c", "qa"}},
 	{binary: "dots"},
 }
 
