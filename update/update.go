@@ -54,7 +54,7 @@ func main() {
 
 		elapsed := time.Since(execStart)
 		elapsedTimes = append(elapsedTimes, elapsed)
-		timber.Done("finished running", cmd, "in", elapsed)
+		timber.Done("running", cmd, "in", elapsed)
 
 	}
 
