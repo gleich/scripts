@@ -135,7 +135,7 @@ func main() {
 	}
 	timber.Done("wrote neofetch summary to readme")
 
-	timber.Done("uploading changes")
+	timber.Info("uploading changes")
 	cmds := []struct {
 		name string
 		cmd  *exec.Cmd
