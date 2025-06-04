@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"slices"
 	"strings"
 	"time"
 
@@ -29,7 +30,6 @@ var commands = []command{
 	{binary: "brew", args: []string{"cleanup", "-s"}},
 	{binary: "rustup", args: []string{"update"}},
 	{binary: "code", args: []string{"--update-extensions"}},
-	{binary: "dots"},
 }
 
 func main() {
@@ -57,6 +57,10 @@ func main() {
 		elapsedTimes = append(elapsedTimes, elapsed)
 		timber.Done("running", cmd, "in", elapsed)
 
+	}
+
+	if slices.Contains(os.Args, "--dots") {
+		commands = append(commands, command{binary: "dots"})
 	}
 
 	fmt.Println()
