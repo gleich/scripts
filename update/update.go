@@ -36,6 +36,10 @@ func main() {
 	timber.Timezone(time.Local)
 	timber.TimeFormat("03:04:05")
 
+	if slices.Contains(os.Args, "--dots") {
+		commands = append(commands, command{binary: "dots"})
+	}
+
 	start := time.Now()
 	elapsedTimes := []time.Duration{}
 	for _, cmd := range commands {
@@ -57,10 +61,6 @@ func main() {
 		elapsedTimes = append(elapsedTimes, elapsed)
 		timber.Done("running", cmd, "in", elapsed)
 
-	}
-
-	if slices.Contains(os.Args, "--dots") {
-		commands = append(commands, command{binary: "dots"})
 	}
 
 	fmt.Println()
