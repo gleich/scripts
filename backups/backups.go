@@ -21,13 +21,13 @@ type backup struct {
 
 var backups = []backup{
 	{
-		name:     "caprover",
+		name:     "Caprover",
 		prefix:   "caprover-backup",
 		suffix:   ".tar",
 		filename: "caprover.tar",
 	},
 	{
-		name:     "strava",
+		name:     "Strava",
 		prefix:   "export_",
 		suffix:   ".zip",
 		length:   19,
@@ -40,11 +40,18 @@ var backups = []backup{
 		filename: "github.tar.gz",
 	},
 	{
-		name:     "goodnotes",
+		name:     "Goodnotes",
 		prefix:   "Backup ",
 		suffix:   ".zip",
 		length:   21,
 		filename: "goodnotes.zip",
+	},
+	{
+		name:     "Yamaha N800A",
+		prefix:   "MC_backup_R-N800A",
+		suffix:   ".dat",
+		length:   21,
+		filename: "yamaha-n800a.dat",
 	},
 }
 
@@ -105,7 +112,7 @@ func main() {
 					timber.Fatal(err, "failed to remove source file")
 				}
 
-				timber.Done("moved", backup.name)
+				timber.Done("Moved", backup.name)
 			}
 		}
 	}
