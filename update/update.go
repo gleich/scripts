@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"slices"
 	"strings"
 	"time"
@@ -39,6 +40,15 @@ func main() {
 	if slices.Contains(os.Args, "--dots") {
 		commands = append(commands, command{binary: "dots"})
 	}
+
+	home, err := os.UserHomeDir()
+	if err != nil {
+		timber.Fatal(err, "failed to get user's home directory")
+	}
+	filepath := filepath.Join(home, ".update", "time.txt")
+	now := time.Now()
+	checkTime(now, filepath)
+	writeTime(now, filepath)
 
 	start := time.Now()
 	elapsedTimes := []time.Duration{}
