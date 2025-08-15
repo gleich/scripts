@@ -1,3 +1,3 @@
 # scripts
 
-automation scripts
+personal automation scripts
