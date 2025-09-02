@@ -34,7 +34,7 @@ var backups = []backup{
 		filename: "strava.zip",
 	},
 	{
-		name:     "github",
+		name:     "GitHub",
 		suffix:   ".tar.gz",
 		length:   43,
 		filename: "github.tar.gz",
