@@ -1,3 +1,3 @@
 # scripts
 
-personal automation scripts
+personal automation scripts. installed with `make`
