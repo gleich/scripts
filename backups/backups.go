@@ -69,6 +69,8 @@ func main() {
 	if err != nil {
 		timber.Fatal(err, "failed to read files from downloads folder")
 	}
+
+	backedUp := 0
 	for _, backup := range backups {
 		for _, entry := range entires {
 			name := entry.Name()
@@ -113,7 +115,9 @@ func main() {
 				}
 
 				timber.Done("Moved", backup.name)
+				backedUp++
 			}
 		}
 	}
+	timber.Done("Backed up", backedUp, "items")
 }
