@@ -48,7 +48,7 @@ func writeTime(now time.Time, path string) {
 	if err != nil {
 		timber.Fatal(err, "failed to make directory:", dir)
 	}
-	err = os.WriteFile(path, []byte(now.Format(timeFormat)), 0655)
+	err = os.WriteFile(path, []byte(now.Format(timeFormat)), 0500)
 	if err != nil {
 		timber.Fatal(err, "failed to write to file")
 	}
