@@ -53,6 +53,12 @@ var backups = []backup{
 		length:   21,
 		filename: "yamaha-n800a.dat",
 	},
+	{
+		name:     "Uniden R8",
+		prefix:   "R8UserSetting",
+		suffix:   ".bin",
+		filename: "uniden_r8.bin",
+	},
 }
 
 func main() {
@@ -96,13 +102,23 @@ func main() {
 				if err != nil {
 					timber.Fatal(err, "failed to open source file")
 				}
-				defer sourceFile.Close()
+				defer func() {
+					err = sourceFile.Close()
+					if err != nil {
+						timber.Fatal(err, "failed to close source file")
+					}
+				}()
 
 				destFile, err := os.Create(destination)
 				if err != nil {
 					timber.Fatal(err, "failed to create destination file")
 				}
-				defer destFile.Close()
+				defer func() {
+					err = destFile.Close()
+					if err != nil {
+						timber.Fatal(err, "failed to close destination file")
+					}
+				}()
 
 				_, err = io.Copy(destFile, sourceFile)
 				if err != nil {
