@@ -30,6 +30,7 @@ var commands = []command{
 	{binary: "brew", args: []string{"upgrade"}},
 	{binary: "brew", args: []string{"cleanup", "-s"}},
 	{binary: "rustup", args: []string{"update"}},
+	{binary: "cargo", args: []string{"install-update", "-a"}},
 	{binary: "code", args: []string{"--update-extensions"}},
 }
 
