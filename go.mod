@@ -2,7 +2,7 @@ module go.mattglei.ch/scripts
 
 go 1.24.2
 
-require go.mattglei.ch/timber v1.4.0
+require go.mattglei.ch/timber v1.5.1
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
