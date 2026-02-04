@@ -71,7 +71,6 @@ func main() {
 		elapsed := time.Since(execStart)
 		elapsedTimes = append(elapsedTimes, elapsed)
 		timber.Done("running", cmd, "in", elapsed)
-
 	}
 
 	fmt.Println()
