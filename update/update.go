@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"go.mattglei.ch/scripts/util"
 	"go.mattglei.ch/timber"
 )
 
@@ -74,9 +75,9 @@ func main() {
 	}
 
 	fmt.Println()
-	timber.Done("executed", len(commands), "commands in", time.Since(start))
+	timber.Done("executed", len(commands), "commands in", util.FormatDuration(time.Since(start)))
 	timber.Done("breakdown:")
 	for i, cmd := range commands {
-		fmt.Printf("\t%s: %s\n", cmd, elapsedTimes[i])
+		fmt.Printf("\t%s: %s\n", cmd, util.FormatDuration(elapsedTimes[i]))
 	}
 }
