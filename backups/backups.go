@@ -1,13 +1,13 @@
 package main
 
 import (
-	"errors"
-	"io"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/charmbracelet/lipgloss"
 	"go.mattglei.ch/timber"
 )
 
@@ -61,6 +61,8 @@ var backups = []backup{
 	},
 }
 
+var grey = lipgloss.NewStyle().Foreground(lipgloss.Color("#4e4e4e"))
+
 func main() {
 	timber.Timezone(time.Local)
 	timber.TimeFormat("03:04:05")
@@ -76,8 +78,9 @@ func main() {
 		timber.Fatal(err, "failed to read files from downloads folder")
 	}
 
-	backedUp := 0
+	count := 0
 	for _, backup := range backups {
+		backedUp := false
 		for _, entry := range entires {
 			name := entry.Name()
 			if !entry.IsDir() && strings.HasPrefix(name, backup.prefix) &&
@@ -85,55 +88,31 @@ func main() {
 					name,
 					backup.suffix,
 				) && (backup.length == 0 || backup.length == len(name)) {
-				destination := filepath.Join(
-					home,
-					"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",
-					backup.filename,
+
+				var (
+					destination = filepath.Join(
+						home,
+						"Library/Mobile Documents/com~apple~CloudDocs/Important/exports",
+						backup.filename,
+					)
+					source = filepath.Join(downloadsPath, name)
 				)
-				if _, err := os.Stat(destination); !errors.Is(err, os.ErrNotExist) {
-					err = os.Remove(destination)
-					if err != nil {
-						timber.Fatal(err, "failed to delete destination file")
-					}
-				}
 
-				sourcePath := filepath.Join(downloadsPath, name)
-				sourceFile, err := os.Open(sourcePath)
+				err = os.Rename(source, destination)
 				if err != nil {
-					timber.Fatal(err, "failed to open source file")
-				}
-				defer func() {
-					err = sourceFile.Close()
-					if err != nil {
-						timber.Fatal(err, "failed to close source file")
-					}
-				}()
-
-				destFile, err := os.Create(destination)
-				if err != nil {
-					timber.Fatal(err, "failed to create destination file")
-				}
-				defer func() {
-					err = destFile.Close()
-					if err != nil {
-						timber.Fatal(err, "failed to close destination file")
-					}
-				}()
-
-				_, err = io.Copy(destFile, sourceFile)
-				if err != nil {
-					timber.Fatal(err, "failed to copy backup file to destination")
-				}
-
-				err = os.Remove(sourcePath)
-				if err != nil {
-					timber.Fatal(err, "failed to remove source file")
+					timber.Fatal(err, "failed to move", source, "to", destination)
 				}
 
 				timber.Done("Moved", backup.name)
-				backedUp++
+				count++
+				backedUp = true
+				break
 			}
 		}
+		if !backedUp {
+			timber.Info(grey.Render(fmt.Sprintf("%s not backed up", backup.name)))
+		}
 	}
-	timber.Done("Backed up", backedUp, "items")
+	fmt.Println()
+	timber.Done("Backed up", count, "items")
 }

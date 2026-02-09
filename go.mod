@@ -2,12 +2,14 @@ module go.mattglei.ch/scripts
 
 go 1.24.2
 
-require go.mattglei.ch/timber v1.5.2
+require (
+	github.com/charmbracelet/lipgloss v1.1.0
+	go.mattglei.ch/timber v1.5.2
+)
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/charmbracelet/colorprofile v0.4.1 // indirect
-	github.com/charmbracelet/lipgloss v1.1.0 // indirect
 	github.com/charmbracelet/x/ansi v0.11.6 // indirect
 	github.com/charmbracelet/x/cellbuf v0.0.15 // indirect
 	github.com/charmbracelet/x/term v0.2.2 // indirect
