@@ -53,7 +53,7 @@ func main() {
 	writeTime(now, filepath)
 
 	start := time.Now()
-	elapsedTimes := []time.Duration{}
+	elapsedTimes := []string{}
 	for _, cmd := range commands {
 		execStart := time.Now()
 
@@ -69,7 +69,7 @@ func main() {
 			timber.Fatal(err, "failed to run command")
 		}
 
-		elapsed := time.Since(execStart)
+		elapsed := util.FormatDuration(time.Since(execStart))
 		elapsedTimes = append(elapsedTimes, elapsed)
 		timber.Done("running", cmd, "in", elapsed)
 	}
@@ -78,6 +78,6 @@ func main() {
 	timber.Done("executed", len(commands), "commands in", util.FormatDuration(time.Since(start)))
 	timber.Done("breakdown:")
 	for i, cmd := range commands {
-		fmt.Printf("\t%s: %s\n", cmd, util.FormatDuration(elapsedTimes[i]))
+		fmt.Printf("\t%s: %s\n", cmd, elapsedTimes[i])
 	}
 }
