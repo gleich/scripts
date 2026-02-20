@@ -27,6 +27,7 @@ func main() {
 
 		start := time.Now()
 		timber.Info("Waiting for", waitTimeFormatted)
+
 		time.Sleep(waitTime)
 		timber.DoneSince(start, "sending notification")
 
@@ -39,6 +40,13 @@ func main() {
 			)).Run()
 		if err != nil {
 			timber.Fatal(err, "failed to display notification")
+		}
+
+		for range 10 {
+			err = exec.Command("afplay", "/System/Library/Sounds/Ping.aiff").Run()
+			if err != nil {
+				timber.Fatal(err, "failed to play ping sound")
+			}
 		}
 	}
 }
