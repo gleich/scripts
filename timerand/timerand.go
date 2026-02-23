@@ -7,13 +7,13 @@ import (
 	"os/exec"
 	"time"
 
-	"go.mattglei.ch/scripts/util"
+	"go.mattglei.ch/scripts/internal/logger"
+	"go.mattglei.ch/scripts/internal/util"
 	"go.mattglei.ch/timber"
 )
 
 func main() {
-	timber.Timezone(time.Local)
-	timber.TimeFormat("03:04:05")
+	logger.Setup()
 
 	for {
 		const min = 2 * time.Minute

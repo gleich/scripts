@@ -9,7 +9,8 @@ import (
 	"strings"
 	"time"
 
-	"go.mattglei.ch/scripts/util"
+	"go.mattglei.ch/scripts/internal/logger"
+	"go.mattglei.ch/scripts/internal/util"
 	"go.mattglei.ch/timber"
 )
 
@@ -36,8 +37,7 @@ var commands = []command{
 }
 
 func main() {
-	timber.Timezone(time.Local)
-	timber.TimeFormat("03:04:05")
+	logger.Setup()
 
 	if slices.Contains(os.Args, "--dots") {
 		commands = append(commands, command{binary: "dots"})
@@ -75,7 +75,7 @@ func main() {
 	}
 
 	fmt.Println()
-	timber.Done("executed", len(commands), "commands in", util.FormatDuration(time.Since(start)))
+	timber.DoneSince(start, "executed", len(commands), "commands in")
 	timber.Done("breakdown:")
 	for i, cmd := range commands {
 		fmt.Printf("\t%s: %s\n", cmd, elapsedTimes[i])

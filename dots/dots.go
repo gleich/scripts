@@ -6,8 +6,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"time"
 
+	"go.mattglei.ch/scripts/internal/logger"
 	"go.mattglei.ch/timber"
 )
 
@@ -60,8 +60,7 @@ var (
 )
 
 func main() {
-	timber.Timezone(time.Local)
-	timber.TimeFormat("03:04:05")
+	logger.Setup()
 
 	err := os.RemoveAll(DOTS_ROOT_DIR)
 	if err != nil {

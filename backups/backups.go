@@ -5,9 +5,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/charmbracelet/lipgloss"
+	"go.mattglei.ch/scripts/internal/logger"
 	"go.mattglei.ch/timber"
 )
 
@@ -64,8 +64,7 @@ var backups = []backup{
 var grey = lipgloss.NewStyle().Foreground(lipgloss.Color("#4e4e4e"))
 
 func main() {
-	timber.Timezone(time.Local)
-	timber.TimeFormat("03:04:05")
+	logger.Setup()
 
 	home, err := os.UserHomeDir()
 	if err != nil {
