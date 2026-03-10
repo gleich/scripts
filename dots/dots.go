@@ -36,6 +36,8 @@ var (
 			"nvim",
 			"gh",
 			"kitty",
+			"zed",
+			"codebook",
 		},
 	}
 	files = map[string][]string{

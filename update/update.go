@@ -39,7 +39,7 @@ var commands = []command{
 func main() {
 	logger.Setup()
 
-	if slices.Contains(os.Args, "--dots") {
+	if !slices.Contains(os.Args, "--no-dots") {
 		commands = append(commands, command{binary: "dots"})
 	}
 
