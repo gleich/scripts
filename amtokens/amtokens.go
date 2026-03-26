@@ -65,8 +65,8 @@ func main() {
 
 	appToken, expiration := generateAppToken(inputs)
 
-	timber.Done("app token:", appToken)
-	timber.Done("expires:", expiration.Format("January 2 2006"))
+	timber.Done("app token", timber.A("token", appToken))
+	timber.Done("expires", timber.A("date", expiration.Format("January 2 2006")))
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", serveUserAuth(appToken))
@@ -76,7 +76,7 @@ func main() {
 	fmt.Println()
 	waitGroup := sync.WaitGroup{}
 	waitGroup.Add(1)
-	timber.Info("starting server for user token:", url)
+	timber.Info("starting server for user token", timber.A("url", url))
 	go func() {
 		err = http.ListenAndServe(addr, mux)
 		if err != nil {
@@ -85,7 +85,7 @@ func main() {
 	}()
 	err = browser.OpenURL(url)
 	if err != nil {
-		timber.Fatal(err, "failed to open", url, "in browser")
+		timber.Fatal(err, "failed to open url in browser", timber.A("url", url))
 	}
 	waitGroup.Wait()
 }

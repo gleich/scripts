@@ -66,26 +66,26 @@ func main() {
 
 	err := os.RemoveAll(DOTS_ROOT_DIR)
 	if err != nil {
-		timber.Fatal(err, "failed to reset root dots directory:", DOTS_ROOT_DIR)
+		timber.Fatal(err, "failed to reset root dots directory", timber.A("dir", DOTS_ROOT_DIR))
 	}
 
 	for dir, filenames := range files {
 		for _, filename := range filenames {
 			syspath, dotspath, err := paths(dir, filename)
 			if err != nil {
-				timber.Fatal(err, "failed to get path for", dir, filename)
+				timber.Fatal(err, "failed to get path", timber.A("dir", dir), timber.A("filename", filename))
 			}
 			err = os.MkdirAll(filepath.Dir(dotspath), os.ModePerm)
 			if err != nil {
-				timber.Fatal(err, "failed to make parent dir for", dotspath)
+				timber.Fatal(err, "failed to make parent dir", timber.A("path", dotspath))
 			}
 			data, err := os.ReadFile(syspath)
 			if err != nil {
-				timber.Fatal(err, "failed to read", syspath)
+				timber.Fatal(err, "failed to read", timber.A("path", syspath))
 			}
 			err = os.WriteFile(dotspath, data, 0644)
 			if err != nil {
-				timber.Fatal(err, "failed to write data to", dotspath)
+				timber.Fatal(err, "failed to write data", timber.A("path", dotspath))
 			}
 		}
 	}
@@ -95,11 +95,11 @@ func main() {
 		for _, dir := range dirs {
 			syspath, dotspath, err := paths(parentDir, dir)
 			if err != nil {
-				timber.Fatal(err, "failed to get paths for", parentDir, dir)
+				timber.Fatal(err, "failed to get paths", timber.A("parent_dir", parentDir), timber.A("dir", dir))
 			}
 			err = os.CopyFS(dotspath, os.DirFS(syspath))
 			if err != nil {
-				timber.Fatal(err, "failed to copy", syspath)
+				timber.Fatal(err, "failed to copy", timber.A("path", syspath))
 			}
 		}
 	}
@@ -108,14 +108,14 @@ func main() {
 	for _, command := range commands {
 		out, err := exec.Command(command.cmd[0], command.cmd[1:]...).Output()
 		if err != nil {
-			timber.Fatal(err, "failed to run", command.cmd)
+			timber.Fatal(err, "failed to run", timber.A("cmd", command.cmd))
 		}
 		dotspath := filepath.Join(REPO_DIR, command.filename)
 		err = os.WriteFile(dotspath, out, 0644)
 		if err != nil {
-			timber.Fatal(err, "failed to write output of command to", dotspath)
+			timber.Fatal(err, "failed to write output of command", timber.A("path", dotspath))
 		}
-		timber.Done("ran", command.name, "command")
+		timber.Done("ran command", timber.A("name", command.name))
 	}
 
 	out, err := exec.Command("neofetch", "--stdout").Output()
@@ -158,7 +158,7 @@ func main() {
 					return
 				}
 			}
-			timber.Error(err, "failed to run", c.cmd.Args)
+			timber.Error(err, "failed to run", timber.A("args", c.cmd.Args))
 		}
 	}
 }

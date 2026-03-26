@@ -14,7 +14,7 @@ import (
 func generateAppToken(inputs Inputs) (string, time.Time) {
 	key, err := os.ReadFile(inputs.KeyFilename)
 	if err != nil {
-		timber.Fatal(err, "failed to read from", inputs.KeyFilename)
+		timber.Fatal(err, "failed to read from", timber.A("file", inputs.KeyFilename))
 	}
 
 	block, _ := pem.Decode(key)
@@ -24,7 +24,7 @@ func generateAppToken(inputs Inputs) (string, time.Time) {
 
 	keyIfc, err := x509.ParsePKCS8PrivateKey(block.Bytes)
 	if err != nil {
-		timber.Fatal(err, "parse PKCS#8 private key", err)
+		timber.Fatal(err, "parse PKCS#8 private key")
 	}
 	ecKey, ok := keyIfc.(*ecdsa.PrivateKey)
 	if !ok {
