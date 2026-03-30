@@ -50,6 +50,8 @@ var (
 			".gnupg/gpg-agent.conf",
 			".rustup/settings.toml",
 			".cargo/.crates.toml",
+			".claude/settings.json",
+			".claude/CLAUDE.md",
 		},
 	}
 	commands = []command{
@@ -73,7 +75,12 @@ func main() {
 		for _, filename := range filenames {
 			syspath, dotspath, err := paths(dir, filename)
 			if err != nil {
-				timber.Fatal(err, "failed to get path", timber.A("dir", dir), timber.A("filename", filename))
+				timber.Fatal(
+					err,
+					"failed to get path",
+					timber.A("dir", dir),
+					timber.A("filename", filename),
+				)
 			}
 			err = os.MkdirAll(filepath.Dir(dotspath), os.ModePerm)
 			if err != nil {
@@ -95,7 +102,12 @@ func main() {
 		for _, dir := range dirs {
 			syspath, dotspath, err := paths(parentDir, dir)
 			if err != nil {
-				timber.Fatal(err, "failed to get paths", timber.A("parent_dir", parentDir), timber.A("dir", dir))
+				timber.Fatal(
+					err,
+					"failed to get paths",
+					timber.A("parent_dir", parentDir),
+					timber.A("dir", dir),
+				)
 			}
 			err = os.CopyFS(dotspath, os.DirFS(syspath))
 			if err != nil {
