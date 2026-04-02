@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/charmbracelet/huh"
 	"go.mattglei.ch/timber"
 )
 
@@ -31,13 +31,16 @@ func checkTime(now time.Time, path string) {
 		return
 	}
 
-	timber.Warning("Update has already been ran today. Do you want to run it again (y/n)?")
-	var response string
-	_, err = fmt.Scan(&response)
+	var runAgain bool
+	err = huh.NewConfirm().
+		Title("Update has already been ran today. Run again?").
+		Value(&runAgain).
+		WithTheme(huh.ThemeBase()).
+		Run()
 	if err != nil {
 		timber.Fatal(err, "failed to get user's input")
 	}
-	if !strings.Contains(response, "y") {
+	if !runAgain {
 		os.Exit(0)
 	}
 }
