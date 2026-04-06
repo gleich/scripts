@@ -62,7 +62,10 @@ func main() {
 
 	for i, waitTime := range intervals {
 		start := time.Now()
-		timber.Info(fmt.Sprintf("[%d/%d]", i+1, count), timber.A("waiting_for", util.FormatDuration(waitTime)))
+		timber.Info(
+			fmt.Sprintf("[%d/%d]", i+1, count),
+			timber.A("waiting_for", util.FormatDuration(waitTime)),
+		)
 
 		time.Sleep(waitTime)
 		timber.DoneSince(start, "sending notification")
