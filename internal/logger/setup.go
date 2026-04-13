@@ -8,5 +8,5 @@ import (
 
 func Setup() {
 	timber.Timezone(time.Local)
-	timber.TimeFormat("03:04:05")
+	timber.TimeFormat("03:04:05pm")
 }
