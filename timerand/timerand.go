@@ -81,7 +81,7 @@ func main() {
 			timber.Fatal(err, "failed to display notification")
 		}
 
-		for range 5 {
+		for range 2 {
 			err = exec.Command("afplay", "/System/Library/Sounds/Ping.aiff").Run()
 			if err != nil {
 				timber.Fatal(err, "failed to play ping sound")
