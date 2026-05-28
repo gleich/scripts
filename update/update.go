@@ -57,7 +57,7 @@ func main() {
 	for _, cmd := range commands {
 		execStart := time.Now()
 
-		timber.Info("running", timber.A("cmd", cmd))
+		timber.Info(fmt.Sprintf("running \"%s\"", cmd))
 
 		cmdExec := exec.Command(cmd.binary, cmd.args...)
 		cmdExec.Stdout = os.Stdout

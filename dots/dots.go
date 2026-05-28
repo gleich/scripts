@@ -127,7 +127,9 @@ func main() {
 		if err != nil {
 			timber.Fatal(err, "failed to write output of command", timber.A("path", dotspath))
 		}
-		timber.Done("ran command", timber.A("name", command.name))
+		timber.Done(
+			fmt.Sprintf("ran \"%s %s\"", command.cmd[0], strings.Join(command.cmd[1:], " ")),
+		)
 	}
 
 	out, err := exec.Command("neofetch", "--stdout").Output()
