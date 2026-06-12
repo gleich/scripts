@@ -29,7 +29,7 @@ func (c command) String() string {
 
 var commands = []command{
 	{binary: "brew", args: []string{"update"}},
-	{binary: "brew", args: []string{"upgrade"}},
+	{binary: "brew", args: []string{"upgrade", "-y"}},
 	{binary: "brew", args: []string{"cleanup", "-s"}},
 	{binary: "rustup", args: []string{"update"}},
 	{binary: "cargo", args: []string{"install-update", "-a"}},
