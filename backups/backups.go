@@ -99,15 +99,10 @@ func main() {
 
 				err = os.Rename(source, destination)
 				if err != nil {
-					timber.Fatal(
-						err,
-						"failed to move",
-						timber.A("source", source),
-						timber.A("destination", destination),
-					)
+					timber.Fatalf(err, "failed to move %s to %s", source, destination)
 				}
 
-				timber.Done(fmt.Sprintf("%s backed up", backup.name))
+				timber.Donef("%s backed up", backup.name)
 				count++
 				backedUp = true
 				break
@@ -118,5 +113,5 @@ func main() {
 		}
 	}
 	fmt.Println()
-	timber.Done("Backed up", timber.A("count", count))
+	timber.Donef("backed up %d files", count)
 }

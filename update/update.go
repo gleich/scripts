@@ -57,7 +57,7 @@ func main() {
 	for _, cmd := range commands {
 		execStart := time.Now()
 
-		timber.Info(fmt.Sprintf("running \"%s\"", cmd))
+		timber.Infof("running %q", cmd)
 
 		cmdExec := exec.Command(cmd.binary, cmd.args...)
 		cmdExec.Stdout = os.Stdout
@@ -71,11 +71,11 @@ func main() {
 
 		elapsed := util.FormatDuration(time.Since(execStart))
 		elapsedTimes = append(elapsedTimes, elapsed)
-		timber.Done("running", timber.A("cmd", cmd), timber.A("elapsed", elapsed))
+		timber.Donef("ran %q in %s", cmd, elapsed)
 	}
 
 	fmt.Println()
-	timber.DoneSince(start, "executed", timber.A("count", len(commands)))
+	timber.DoneSince(start, fmt.Sprintf("executed %d commands", len(commands)))
 	timber.Done("breakdown:")
 	for i, cmd := range commands {
 		fmt.Printf("\t%s: %s\n", cmd, elapsedTimes[i])

@@ -19,7 +19,7 @@ func checkTime(now time.Time, path string) {
 
 	bin, err := os.ReadFile(path)
 	if err != nil {
-		timber.Fatal(err, "failed to read from", timber.A("path", path))
+		timber.Fatalf(err, "failed to read from %s", path)
 	}
 	t, err := time.ParseInLocation(timeFormat, strings.TrimSpace(string(bin)), time.Local)
 	if err != nil {
@@ -49,7 +49,7 @@ func writeTime(now time.Time, path string) {
 	dir := filepath.Dir(path)
 	err := os.MkdirAll(filepath.Dir(path), 0700)
 	if err != nil {
-		timber.Fatal(err, "failed to make directory", timber.A("dir", dir))
+		timber.Fatalf(err, "failed to make directory %s", dir)
 	}
 	err = os.WriteFile(path, []byte(now.Format(timeFormat)), 0600)
 	if err != nil {

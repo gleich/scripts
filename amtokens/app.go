@@ -14,7 +14,7 @@ import (
 func generateAppToken(inputs Inputs) (string, time.Time) {
 	key, err := os.ReadFile(inputs.KeyFilename)
 	if err != nil {
-		timber.Fatal(err, "failed to read from", timber.A("file", inputs.KeyFilename))
+		timber.Fatalf(err, "failed to read from %s", inputs.KeyFilename)
 	}
 
 	block, _ := pem.Decode(key)

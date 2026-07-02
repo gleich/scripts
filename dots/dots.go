@@ -68,31 +68,26 @@ func main() {
 
 	err := os.RemoveAll(DOTS_ROOT_DIR)
 	if err != nil {
-		timber.Fatal(err, "failed to reset root dots directory", timber.A("dir", DOTS_ROOT_DIR))
+		timber.Fatalf(err, "failed to reset root dots directory %s", DOTS_ROOT_DIR)
 	}
 
 	for dir, filenames := range files {
 		for _, filename := range filenames {
 			syspath, dotspath, err := paths(dir, filename)
 			if err != nil {
-				timber.Fatal(
-					err,
-					"failed to get path",
-					timber.A("dir", dir),
-					timber.A("filename", filename),
-				)
+				timber.Fatalf(err, "failed to get path for %s in %s", filename, dir)
 			}
 			err = os.MkdirAll(filepath.Dir(dotspath), os.ModePerm)
 			if err != nil {
-				timber.Fatal(err, "failed to make parent dir", timber.A("path", dotspath))
+				timber.Fatalf(err, "failed to make parent dir %s", dotspath)
 			}
 			data, err := os.ReadFile(syspath)
 			if err != nil {
-				timber.Fatal(err, "failed to read", timber.A("path", syspath))
+				timber.Fatalf(err, "failed to read %s", syspath)
 			}
 			err = os.WriteFile(dotspath, data, 0644)
 			if err != nil {
-				timber.Fatal(err, "failed to write data", timber.A("path", dotspath))
+				timber.Fatalf(err, "failed to write data to %s", dotspath)
 			}
 		}
 	}
@@ -102,16 +97,11 @@ func main() {
 		for _, dir := range dirs {
 			syspath, dotspath, err := paths(parentDir, dir)
 			if err != nil {
-				timber.Fatal(
-					err,
-					"failed to get paths",
-					timber.A("parent_dir", parentDir),
-					timber.A("dir", dir),
-				)
+				timber.Fatalf(err, "failed to get paths for %s in %s", dir, parentDir)
 			}
 			err = os.CopyFS(dotspath, os.DirFS(syspath))
 			if err != nil {
-				timber.Fatal(err, "failed to copy", timber.A("path", syspath))
+				timber.Fatalf(err, "failed to copy %s", syspath)
 			}
 		}
 	}
@@ -120,16 +110,14 @@ func main() {
 	for _, command := range commands {
 		out, err := exec.Command(command.cmd[0], command.cmd[1:]...).Output()
 		if err != nil {
-			timber.Fatal(err, "failed to run", timber.A("cmd", command.cmd))
+			timber.Fatalf(err, "failed to run %v", command.cmd)
 		}
 		dotspath := filepath.Join(REPO_DIR, command.filename)
 		err = os.WriteFile(dotspath, out, 0644)
 		if err != nil {
-			timber.Fatal(err, "failed to write output of command", timber.A("path", dotspath))
+			timber.Fatalf(err, "failed to write output of command to %s", dotspath)
 		}
-		timber.Done(
-			fmt.Sprintf("ran \"%s %s\"", command.cmd[0], strings.Join(command.cmd[1:], " ")),
-		)
+		timber.Donef("ran %q", strings.Join(command.cmd, " "))
 	}
 
 	out, err := exec.Command("neofetch", "--stdout").Output()
@@ -172,7 +160,7 @@ func main() {
 					return
 				}
 			}
-			timber.Error(err, "failed to run", timber.A("args", c.cmd.Args))
+			timber.Errorf(err, "failed to run %v", c.cmd.Args)
 		}
 	}
 }
