@@ -75,7 +75,7 @@ func main() {
 	}
 
 	fmt.Println()
-	timber.DoneSince(start, fmt.Sprintf("executed %d commands", len(commands)))
+	timber.DoneSince(start, fmt.Sprintf("executed %d command(s)", len(commands)))
 	timber.Done("breakdown:")
 	for i, cmd := range commands {
 		fmt.Printf("\t%s: %s\n", cmd, elapsedTimes[i])
