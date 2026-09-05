@@ -79,7 +79,7 @@ func main() {
 }
 
 func runRandomTimer() {
-	const minWait = 2 * time.Minute
+	const minWait = time.Minute
 	const waitRange = 3 * time.Minute
 
 	for {
