@@ -12,11 +12,12 @@ import (
 )
 
 type backup struct {
-	name     string
-	prefix   string
-	suffix   string
-	length   int // optional
-	filename string
+	name      string
+	prefix    string
+	suffix    string
+	length    int // optional
+	filename  string
+	checklist string
 }
 
 var backups = []backup{
@@ -47,17 +48,19 @@ var backups = []backup{
 		filename: "goodnotes.zip",
 	},
 	{
-		name:     "Yamaha N800A",
-		prefix:   "MC_backup_R-N800A",
-		suffix:   ".dat",
-		length:   21,
-		filename: "yamaha-n800a.dat",
+		name:      "Yamaha N800A",
+		checklist: "Yamaha R-N800A",
+		prefix:    "MC_backup_R-N800A",
+		suffix:    ".dat",
+		length:    21,
+		filename:  "yamaha-n800a.dat",
 	},
 	{
-		name:     "Uniden R8",
-		prefix:   "R8UserSetting",
-		suffix:   ".bin",
-		filename: "uniden_r8.bin",
+		name:      "Uniden R8",
+		checklist: "Uniden",
+		prefix:    "R8UserSetting",
+		suffix:    ".bin",
+		filename:  "uniden_r8.bin",
 	},
 }
 
@@ -105,6 +108,16 @@ func main() {
 				timber.Donef("%s backed up", backup.name)
 				count++
 				backedUp = true
+				checklist := backup.checklist
+				if checklist == "" {
+					checklist = backup.name
+				}
+				err = completeBackupChecklist(home, checklist)
+				if err != nil {
+					timber.Errorf(err, "failed to check off %s in Things", checklist)
+				} else {
+					timber.Donef("%s checked off in Things", checklist)
+				}
 				break
 			}
 		}
