@@ -57,7 +57,7 @@ var (
 	commands = []command{
 		{
 			name:     "homebrew",
-			cmd:      []string{"brew", "bundle", "dump", "--describe", "--file=-"},
+			cmd:      []string{"brew", "bundle", "dump", "--file=-"},
 			filename: "Brewfile",
 		},
 	}
@@ -108,7 +108,9 @@ func main() {
 	timber.Done("copied folders")
 
 	for _, command := range commands {
-		out, err := exec.Command(command.cmd[0], command.cmd[1:]...).Output()
+		cmd := exec.Command(command.cmd[0], command.cmd[1:]...)
+		cmd.Stderr = os.Stderr
+		out, err := cmd.Output()
 		if err != nil {
 			timber.Fatalf(err, "failed to run %v", command.cmd)
 		}
