@@ -3,6 +3,7 @@ module go.mattglei.ch/scripts
 go 1.26.0
 
 require (
+	github.com/andybrewer/mack v0.0.0-20251024001139-afd410b36447
 	github.com/charmbracelet/huh v1.0.0
 	github.com/charmbracelet/lipgloss v1.1.0
 	github.com/golang-jwt/jwt/v5 v5.3.1
