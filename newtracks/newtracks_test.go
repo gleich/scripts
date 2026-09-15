@@ -141,9 +141,6 @@ func TestMusicIntegration(t *testing.T) {
 	source := appleScriptString(name)
 	destination := appleScriptString("new " + name)
 	folder := appleScriptString(name + " folder")
-	run := func(script string) (string, error) {
-		return runAppleScript(strings.ReplaceAll(script, `set folderName to "NEW"`, "set folderName to "+folder))
-	}
 	t.Cleanup(func() {
 		_, err := runAppleScript("delete (every user playlist whose name is " + destination + ")\n" +
 			"delete (every user playlist whose name is " + source + ")\n" +
@@ -154,62 +151,75 @@ func TestMusicIntegration(t *testing.T) {
 	})
 	_, err := runAppleScript("set fixture to make new user playlist with properties {name:" + source + "}\n" +
 		"duplicate track 1 of library playlist 1 to fixture\n" +
-		"duplicate track 2 of library playlist 1 to fixture\n" +
-		"duplicate track 1 of library playlist 1 to fixture")
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = syncPlaylist(name, run)
-	if err != nil {
-		t.Fatal(err)
-	}
-	output, err := runAppleScript("return name of parent of user playlist " + destination)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if output != name+" folder" {
-		t.Fatalf("unexpected destination folder: %s", output)
-	}
-	_, err = runAppleScript("delete user playlist " + destination + "\n" +
-		"set fixture to make new user playlist with properties {name:" + destination + "}\n" +
 		"duplicate track 1 of library playlist 1 to fixture\n" +
-		"duplicate track 2 of library playlist 1 to fixture\n" +
-		"duplicate track 1 of library playlist 1 to fixture")
+		"duplicate track 2 of library playlist 1 to fixture")
 	if err != nil {
 		t.Fatal(err)
 	}
-	calls := 0
-	err = syncPlaylist(name, func(script string) (string, error) {
-		calls++
-		return run(script)
-	})
+	err = syncPlaylist(name, runAppleScript)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if calls != 1 {
-		t.Fatal("second run was not a no-op")
-	}
-	output, err = runAppleScript("return name of parent of user playlist " + destination)
+	destinationID, err := runAppleScript("return persistent ID of user playlist " + destination)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if output != name+" folder" {
-		t.Fatalf("existing destination was not moved: %s", output)
+	checkDestination := func(folderName string) {
+		t.Helper()
+		output, err := runAppleScript("set targetPlaylist to user playlist " + destination + `
+set folderName to ""
+try
+	set currentParent to parent of targetPlaylist
+	if currentParent is not missing value then set folderName to name of currentParent
+on error messageText number errorNumber
+	if errorNumber is not -1728 then error messageText number errorNumber
+end try
+return (persistent ID of targetPlaylist) & "|" & folderName`)
+		if err != nil {
+			t.Fatal(err)
+		}
+		want := destinationID + "|" + folderName
+		if output != want {
+			t.Fatalf("destination identity or folder changed: got %q, want %q", output, want)
+		}
 	}
-	_, err = runAppleScript("duplicate track 2 of library playlist 1 to user playlist " + source)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = syncPlaylist(name, run)
-	if err != nil {
-		t.Fatal(err)
-	}
-	output, err = runAppleScript("return count of tracks of user playlist " + source)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if output != "4" {
-		t.Fatalf("source changed: %s tracks", output)
+	checkDestination("")
+	for i, folderName := range []string{"", name + " folder"} {
+		if folderName != "" {
+			_, err = runAppleScript("set fixtureFolder to make new folder playlist with properties {name:" + folder + "}\n" +
+				"move user playlist " + destination + " to fixtureFolder")
+			if err != nil {
+				t.Fatal(err)
+			}
+		}
+		calls := 0
+		err = syncPlaylist(name, func(script string) (string, error) {
+			calls++
+			return runAppleScript(script)
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if calls != 1 {
+			t.Fatal("unchanged playlist was not a no-op")
+		}
+		checkDestination(folderName)
+		_, err = runAppleScript("duplicate track 2 of library playlist 1 to user playlist " + source)
+		if err != nil {
+			t.Fatal(err)
+		}
+		err = syncPlaylist(name, runAppleScript)
+		if err != nil {
+			t.Fatal(err)
+		}
+		checkDestination(folderName)
+		output, err := runAppleScript("return count of tracks of user playlist " + source)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if output != fmt.Sprint(4+i) {
+			t.Fatalf("source changed: %s tracks", output)
+		}
 	}
 }
 

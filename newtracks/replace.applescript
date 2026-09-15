@@ -9,7 +9,6 @@ end repeat
 
 if destinationID is "" then
 	set destinationPlaylist to make new user playlist with properties {name:destinationName}
-	move destinationPlaylist to destinationFolder
 end if
 delete every track of destinationPlaylist
 repeat with selectedTrack in desiredTracks

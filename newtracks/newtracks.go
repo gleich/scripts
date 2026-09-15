@@ -22,9 +22,6 @@ var readScript string
 //go:embed replace.applescript
 var replaceScript string
 
-//go:embed folder.applescript
-var folderScript string
-
 type scriptRunner func(string) (string, error)
 
 type playlistState struct {
@@ -61,8 +58,7 @@ func syncPlaylists(names []string, run scriptRunner) error {
 func syncPlaylist(name string, run scriptRunner) error {
 	destination := "new " + name
 	script := "set sourceName to " + appleScriptString(name) + "\n" +
-		"set destinationName to " + appleScriptString(destination) + "\n" +
-		"set folderName to \"NEW\"\n" + readScript + "\n" + folderScript
+		"set destinationName to " + appleScriptString(destination) + "\n" + readScript
 	output, err := run(script + "\nreturn snapshot")
 	if err != nil {
 		return fmt.Errorf("read playlists: %w", err)
