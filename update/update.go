@@ -49,9 +49,7 @@ func main() {
 		timber.Fatal(err, "failed to get user's home directory")
 	}
 	filepath := filepath.Join(home, ".update", "time.txt")
-	now := time.Now()
-	checkTime(now, filepath)
-	writeTime(now, filepath)
+	checkTime(time.Now(), filepath)
 
 	start := time.Now()
 	elapsedTimes := []string{}
@@ -74,6 +72,8 @@ func main() {
 		elapsedTimes = append(elapsedTimes, elapsed)
 		timber.Donef("ran %q in %s", cmd, elapsed)
 	}
+
+	writeTime(time.Now(), filepath)
 
 	fmt.Println()
 	timber.DoneSince(start, fmt.Sprintf("executed %d command(s)", len(commands)))
