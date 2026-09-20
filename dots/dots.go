@@ -35,9 +35,9 @@ var (
 			"raycast/script-commands",
 			"nvim",
 			"gh",
-			"kitty",
 			"zed",
 			"codebook",
+			"ghostty",
 		},
 	}
 	files = map[string][]string{
