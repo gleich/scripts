@@ -35,6 +35,7 @@ var commands = []command{
 	{binary: "cargo", args: []string{"install-update", "-a"}},
 	{binary: "code", args: []string{"--update-extensions"}},
 	{binary: "codex", args: []string{"update"}},
+	{binary: "claude", args: []string{"update"}},
 }
 
 func main() {
