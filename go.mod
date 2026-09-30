@@ -6,6 +6,7 @@ require (
 	github.com/andybrewer/mack v0.0.0-20251024001139-afd410b36447
 	github.com/charmbracelet/huh v1.0.0
 	github.com/charmbracelet/lipgloss v1.1.0
+	github.com/ebitengine/purego v0.11.1
 	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	go.mattglei.ch/timber v1.9.0

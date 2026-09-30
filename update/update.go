@@ -51,6 +51,7 @@ func main() {
 	}
 	filepath := filepath.Join(home, ".update", "time.txt")
 	checkTime(time.Now(), filepath)
+	quitApps()
 
 	start := time.Now()
 	elapsedTimes := []string{}
