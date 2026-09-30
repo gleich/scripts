@@ -32,7 +32,6 @@ var (
 			"resin",
 			"neofetch",
 			"zathura",
-			"raycast/script-commands",
 			"nvim",
 			"gh",
 			"zed",
