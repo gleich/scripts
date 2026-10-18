@@ -11,8 +11,12 @@ import (
 const (
 	appKitPath              = "/System/Library/Frameworks/AppKit.framework/AppKit"
 	activationPolicyRegular = 0
-	finderBundleID          = "com.apple.finder"
 )
+
+var keepRunning = map[string]bool{
+	"com.apple.finder":   true,
+	"com.apple.FaceTime": true,
+}
 
 var (
 	selSharedWorkspace      = objc.RegisterName("sharedWorkspace")
@@ -47,7 +51,7 @@ func quitApps() {
 		if objc.Send[int32](app, selProcessIdentifier) == current {
 			continue
 		}
-		if goString(app.Send(selBundleIdentifier)) == finderBundleID {
+		if keepRunning[goString(app.Send(selBundleIdentifier))] {
 			continue
 		}
 
