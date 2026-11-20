@@ -50,8 +50,6 @@ var (
 			".gnupg/gpg-agent.conf",
 			".rustup/settings.toml",
 			".cargo/.crates.toml",
-			".claude/settings.json",
-			".claude/CLAUDE.md",
 		},
 	}
 	commands = []command{
