@@ -37,6 +37,7 @@ var (
 			"zed",
 			"codebook",
 			"ghostty",
+			"raycast/script-commands",
 		},
 	}
 	files = map[string][]string{
